@@ -1,6 +1,6 @@
 # Prueba de Escritorio (Web)
 
-![Uploading imagen.png…]()
+<img width="1171" height="737" alt="2026-09-04_23-03" src="https://github.com/user-attachments/assets/57694136-e46e-47d8-b064-0e39e3b418b6" />
 
 
 
