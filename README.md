@@ -1,5 +1,9 @@
 # Prueba de Escritorio (Web)
 
+![Uploading imagen.png…]()
+
+
+
 Herramienta de estudio para resolver ejercicios de **Python** con la técnica de *prueba de escritorio*: ejecuta el código paso a paso dentro del navegador y muestra tabla por tabla cómo cambian las variables en cada línea.
 
 ![Estado](https://img.shields.io/badge/estado-estable-green) ![Python en navegador](https://img.shields.io/badge/ejecuci%C3%B3n-Pyodide%20sin%20servidor-blue) ![Stack](https://img.shields.io/badge/stack-HTML%2FCSS%2FJS-orange)
