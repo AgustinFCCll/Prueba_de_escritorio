@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prueba de Escritorio</title>
+
+  <!-- Tipografías distintivas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@600;700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- OCR para leer capturas -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <!-- Python dentro del navegador -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
+</head>
+
+<body>
+  <!-- Textura de grano overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Fondo decorativo -->
+  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
+
+  <main class="contenedor">
+    <header class="header-animado">
+      <p class="etiqueta">Herramienta de estudio</p>
+      <h1>Prueba de<br /><span class="h1-accent">Escritorio</span></h1>
+      <p class="subtitulo">
+        Escribí, pegá o subí una captura del código Python y mirá cómo cambian las variables paso a paso.
+      </p>
+    </header>
+
+    <!-- PASO 1: Código del ejercicio -->
+    <section class="card card-1">
+      <div class="card-header">
+        <span class="card-num">01</span>
+        <h2>Código del ejercicio</h2>
+      </div>
+
+      <div class="acciones-abiertas">
+        <button id="btnPegar" class="btn fantasma" title="Pegar código del portapapeles">
+          Pegar código
+        </button>
+        <button id="btnEjemplo" class="btn fantasma">
+          Cargar ejemplo
+        </button>
+      </div>
+
+      <textarea
+        id="codigo"
+        spellcheck="false"
+        placeholder='Ejemplo:
+a = 5
+b = 3
+suma = a + b
+print(suma)'
+      ></textarea>
+
+      <label for="entradas"><strong>Valores para input()</strong> (uno por línea, opcional)</label>
+      <textarea
+        id="entradas"
+        class="entradas"
+        spellcheck="false"
+        placeholder="Ejemplo:
+5
+8"
+      ></textarea>
+
+      <p id="estadoPegar" class="estado"></p>
+    </section>
+
+    <!-- PASO 1-bis: Imagen (alternativa) -->
+    <section class="card card-opcional card-2">
+      <div class="card-header">
+        <span class="card-num">02</span>
+        <h2>O subí una captura del ejercicio</h2>
+      </div>
+
+      <p class="ayuda">
+        Si tenés una imagen del ejercicio, podés subirla para extraer el código con OCR.
+        El resultado se cargará arriba para que lo revises antes de ejecutar.
+      </p>
+
+      <label class="dropzone" for="imagen">
+        <span class="dropzone-icon">&#9634;</span>
+        <span>Elegir captura del ejercicio</span>
+        <small>PNG, JPG o JPEG — o pegá una imagen con Ctrl+V</small>
+      </label>
+
+      <input id="imagen" type="file" accept="image/png,image/jpeg" hidden />
+
+      <div id="previewBox" class="preview-box oculto">
+        <img id="preview" alt="Vista previa de la captura" />
+      </div>
+
+      <div class="acciones">
+        <button id="btnOcr" class="btn secundario" disabled>
+          Extraer código de la captura
+        </button>
+        <button id="btnQuitar" class="btn fantasma" disabled>
+          Quitar imagen
+        </button>
+      </div>
+
+      <p id="estadoOcr" class="estado"></p>
+    </section>
+
+    <!-- PASO 2: Ejecutar -->
+    <section class="card card-3">
+      <div class="card-header">
+        <span class="card-num">03</span>
+        <h2>Generar prueba de escritorio</h2>
+      </div>
+
+      <div class="acciones">
+        <button id="btnResolver" class="btn principal">
+          Generar prueba de escritorio
+        </button>
+        <button id="btnLimpiar" class="btn fantasma">
+          Limpiar todo
+        </button>
+      </div>
+
+      <p id="estadoPython" class="estado"></p>
+    </section>
+
+    <!-- PASO 3: Resultado -->
+    <section id="resultado" class="card card-4 oculto">
+      <div class="resultado-head">
+        <div>
+          <div class="card-header">
+            <span class="card-num">04</span>
+            <h2>Resultado paso a paso</h2>
+          </div>
+          <p class="ayuda">Cada fila muestra el estado antes de ejecutar esa línea.</p>
+        </div>
+        <button id="btnCopiar" class="btn secundario">Copiar tabla</button>
+      </div>
+
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Paso</th>
+              <th>Línea</th>
+              <th>Instrucción</th>
+              <th>Variables</th>
+              <th>Salida acumulada</th>
+            </tr>
+          </thead>
+          <tbody id="tablaBody"></tbody>
+        </table>
+      </div>
+
+      <div class="salida-final">
+        <h3>Salida final</h3>
+        <pre id="salidaFinal">(sin salida)</pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
